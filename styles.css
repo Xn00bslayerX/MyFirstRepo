@@ -1,0 +1,7 @@
+.card {
+/*   Sample card. Might be crazy */
+  border-radius: 5px;
+  box-shadow: 13px -5px 17px 0px rgba(0,0,0,0.64);
+  border-radius: 32px 23px 39px 11px;
+  border: 11px outset #ff6550;
+}
