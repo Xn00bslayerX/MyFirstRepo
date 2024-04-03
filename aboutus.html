@@ -4,6 +4,14 @@
       <title>About us</title>
    </head>
    <body>
+      <div id="navbar"></div>
+<script>
+fetch('navbar.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('navbar').innerHTML = data;
+  });
+</script>
       <section id="Whoarewe?">
          <h1>Who are we</h1>
          <p>We are , dedicated to heling you find the perfect product for your concern and the optimal routine for your skin etc.</p>
