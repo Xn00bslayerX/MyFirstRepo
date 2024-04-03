@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Name of website</title>
+</head>
+
+<body>
+   <div id="navbar"></div>
+   <script>
+      fetch('navbar.html')
+            .then(response => response.text())
+            .then(response => {
+               document.getElementById('navbar').innerHTML = response;
+               console.log(response);
+            });
+   </script>
+   <section id="landingtext">
+      <p>Placeholder text that is styled to look like a simple and chic magazine cover</p>
+   </section>
+   <p>Not sure where to start? Let's <a href="routine.html">Establish your Routine</a></p>
+   <img alt="Skincare background image">
+</body>
+
+</html>
