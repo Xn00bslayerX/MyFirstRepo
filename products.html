@@ -5,6 +5,13 @@
 
 </head>
 <body>
+   <script>
+fetch('navbar.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('navbar').innerHTML = data;
+  });
+</script>
    <section id="concern" class="card">
       <h1>Browse by Concern</h1>
       <!-- Should fetch API data here -->
