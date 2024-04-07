@@ -41,7 +41,9 @@ fetch('navbar.html')
            <div class="card">
              <img class="card-image" src="${element.image_link}">
              <a href="${element.product_link}" class="card-link">${element.name}</a>
+             <p>${element.category}<p>
              <p>${element.description}</p>
+             <p>${element.price_sign}${element.price} ${element.currency}</p>
            </div>
          `;
          });
