@@ -3,17 +3,19 @@
 
 <head>
    <title>Products</title>
-    <link rel="stylesheet" href="styles.css" type="text/css">
+   <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 
 <body>
+   <div id="navbar"></div>
    <script>
-fetch('navbar.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('navbar').innerHTML = data;
-  });
+      fetch('navbar.html')
+         .then(response => response.text())
+         .then(data => {
+            document.getElementById('navbar').innerHTML = data;
+         });
    </script>
+
    <section id="concern" class="card">
       <h1>Browse by Concern</h1>
       <!-- Should fetch API data here -->
@@ -26,10 +28,9 @@ fetch('navbar.html')
    </section>
 
    <div class="card-container"></div>
-
+<!-- Work in progress to show working API data before implementing additional functionality -->
    <script>
       const server = "https://makeup-api.herokuapp.com/api/v1/products.json";
-
       async function getAndLoadAPIdata() {
          let response = await fetch(server);
          let data = await response.json();
@@ -38,21 +39,23 @@ fetch('navbar.html')
 
          data.forEach(element => {
             result += `
-           <div class="card">
-             <img class="card-image" src="${element.image_link}">
-             <a href="${element.product_link}" class="card-link">${element.name}</a>
-             <p>${element.category}<p>
-             <p>${element.description}</p>
-             <p>${element.price_sign}${element.price} ${element.currency}</p>
-           </div>
-         `;
+               <div class="card">
+               <img class="card-image" src="${element.image_link}">
+               <a href="${element.product_link}" class="card-link">${element.name}</a>
+               <p>${element.category}</p>
+               <p>${element.description}</p>
+               <p>${element.price_sign}${element.price} ${element.currency}</p>
+  `;//Weird way of handling price, but that's how the API specifies it
+            //Style the colors appropriately using inline CSS to avoid conflicts
+            element.product_colors.forEach(color => {
+               result += `<p style="color:${color.hex_value}">${color.colour_name}</p>`;
+            });
+            result += '</div>';
          });
-
-         // Select the card container element
-         const cardContainer = document.querySelector('.card-container');
-         cardContainer.innerHTML = result;
-      }
-
+      // Select the card container element
+      const cardContainer = document.querySelector('.card-container');
+      cardContainer.innerHTML = result;
+      };
       // Call the function to fetch and load the API data
       getAndLoadAPIdata();
    </script>
