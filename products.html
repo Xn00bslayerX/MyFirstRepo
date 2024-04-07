@@ -37,20 +37,31 @@
          console.log("Data from API: ", data);
          let result = '';
 
-         data.forEach(element => {
-            result += `
-               <div class="card">
-               <img class="card-image" src="${element.image_link}">
-               <a href="${element.product_link}" class="card-link">${element.name}</a>
-               <p>${element.category}</p>
-               <p>${element.description}</p>
-               <p>${element.price_sign}${element.price} ${element.currency}</p>
-  `;//Weird way of handling price, but that's how the API specifies it
-            //Style the colors appropriately using inline CSS to avoid conflicts
-            element.product_colors.forEach(color => {
-               result += `<p style="color:${color.hex_value}">${color.colour_name}</p>`;
-            });
-            result += '</div>';
+         let result = '<table>';
+
+data.forEach(element => {
+  result += `
+    <tr>
+      <td><img src="${element.image_link}" alt="Product Image"></td>
+      <td><a href="${element.product_link}">${element.name}</a></td>
+      <td>${element.category}</td>
+      <td>${element.description}</td>
+      <td>${element.price_sign}${element.price} ${element.currency}</td>
+      <td>`;
+
+  element.product_colors.forEach(color => {
+    result += `<p style="color:${color.hex_value}">${color.colour_name}</p>`;
+  });
+
+  result += `
+      </td>
+    </tr>`;
+});
+
+result += '</table>';
+
+// Now you can use the 'result' variable to display the table.
+
          });
       // Select the card container element
       const cardContainer = document.querySelector('.card-container');
