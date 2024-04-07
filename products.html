@@ -37,7 +37,7 @@
          console.log("Data from API: ", data);
          let result = '';
 
-         let result = '<table>';
+         result = '<table>';
 
 data.forEach(element => {
   result += `
@@ -62,11 +62,11 @@ result += '</table>';
 
 // Now you can use the 'result' variable to display the table.
 
-         });
+         ;
       // Select the card container element
       const cardContainer = document.querySelector('.card-container');
       cardContainer.innerHTML = result;
-      };
+}
       // Call the function to fetch and load the API data
       getAndLoadAPIdata();
    </script>
