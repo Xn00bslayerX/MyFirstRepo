@@ -1,17 +1,12 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
    <title>Products</title>
-   <link rel="stylesheet" href="styles.css">
+
 </head>
+
 <body>
-   <script>
-fetch('navbar.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('navbar').innerHTML = data;
-  });
-</script>
    <section id="concern" class="card">
       <h1>Browse by Concern</h1>
       <!-- Should fetch API data here -->
@@ -22,5 +17,37 @@ fetch('navbar.html')
       <!-- Should fetch API data here -->
       <a href="example.com">Example product from API</a>
    </section>
+
+   <div class="card-container"></div>
+
+   <script>
+      const server = "https://makeup-api.herokuapp.com/api/v1/products.json";
+
+      async function getAndLoadAPIdata() {
+         let response = await fetch(server);
+         let data = await response.json();
+         console.log("Data from API: ", data);
+         let result = '';
+
+         data.forEach(element => {
+            result += `
+           <div class="card">
+             <img class="card-image" src="${element.image_link}">
+             <a href="${element.product_link}" class="card-link">${element.name}</a>
+             <p>${element.description}</p>
+           </div>
+         `;
+         });
+
+         // Select the card container element
+         const cardContainer = document.querySelector('.card-container');
+         cardContainer.innerHTML = result;
+      }
+
+      // Call the function to fetch and load the API data
+      getAndLoadAPIdata();
+   </script>
+
 </body>
+
 </html>
