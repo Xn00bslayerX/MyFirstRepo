@@ -37,34 +37,33 @@
    <script>
       const server = "https://makeup-api.herokuapp.com/api/v1/products.json";
       async function getAndLoadAPIdata() {
-         let response = await fetch(server);
-         let data = await response.json();
-         console.log("Data from API: ", data);
-         let result = '';
+    let response = await fetch(server);
+    let data = await response.json();
+    console.log("Data from API: ", data);
+    let result = '';
 
-         result += '<table><thead><tr><td>Image</td><td>Name</td><td>Category</td><td>Description</td><td>Price</td></tr></thead>';
-         data.forEach(element => {
-            result += ` <tr>
-      <td><img src="${element.image_link}" alt="Product Image"></td>
-      <td><a href="${element.product_link}">${element.name}</a></td>
-      <td>${element.category}</td>
-      <td>${element.description}</td>
-      <td>${element.price_sign}${element.price} ${element.currency}</td>
-      <td>`;
-            for (let index = 0; index < 5; index++) {
-               result += `<p style="color:${element[index].hex_value}">${element[index].colour_name}</p>`;
-            }
-            result += `</td></tr>`;
-         });
+    result = '<table><thead><th>Image</th><th>Name</th><th>Category</th><th>Description</th><th>Price</th></thead>';
+    data.forEach(element => {
+        result += ` <tr>
+        <td><img src="${element.image_link}" alt="Product Image"></td>
+        <td><a href="${element.product_link}">${element.name}</a></td>
+        <td>${element.category}</td>
+        <td>${element.description}</td>
+        <td>${element.price_sign}${element.price} ${element.currency}</td>
+        <td>`;
+        for (let index = 0; index < 4; index++) {
+            result += `<p style="color:${element.product_colors[index].hex_value}">${element.product_colors[index].colour_name}</p>`;
+        }
+        result += `</td></tr>`;
+    });
 
-         result += '</table>';
+    result += '</table>';
 
-         // Now you can use the 'result' variable to display the table.
+    // Select the card container element
+    const cardContainer = document.querySelector('.card-container');
+    cardContainer.innerHTML = result;
+}
 
-         // Select the card container element
-         const cardContainer = document.querySelector('.card-container');
-         cardContainer.innerHTML = result;
-      }
 
       // Call the function to fetch and load the API data
       getAndLoadAPIdata();
