@@ -4,6 +4,11 @@
 <head>
    <title>Products</title>
    <link rel="stylesheet" href="styles.css" type="text/css">
+   <style>
+      img {
+         max-height: 33vh;
+      }
+   </style>
 </head>
 
 <body>
@@ -28,7 +33,7 @@
    </section>
 
    <div class="card-container"></div>
-<!-- Work in progress to show working API data before implementing additional functionality -->
+   <!-- Work in progress to show working API data before implementing additional functionality -->
    <script>
       const server = "https://makeup-api.herokuapp.com/api/v1/products.json";
       async function getAndLoadAPIdata() {
@@ -37,36 +42,30 @@
          console.log("Data from API: ", data);
          let result = '';
 
-         result = '<table>';
-
-data.forEach(element => {
-  result += `
-    <tr>
+         result += '<table><thead><tr><td>Image</td><td>Name</td><td>Category</td><td>Description</td><td>Price</td></tr></thead>';
+         data.forEach(element => {
+            result += ` <tr>
       <td><img src="${element.image_link}" alt="Product Image"></td>
       <td><a href="${element.product_link}">${element.name}</a></td>
       <td>${element.category}</td>
       <td>${element.description}</td>
       <td>${element.price_sign}${element.price} ${element.currency}</td>
       <td>`;
+            for (let index = 0; index < 5; index++) {
+               result += `<p style="color:${element[index].hex_value}">${element[index].colour_name}</p>`;
+            }
+            result += `</td></tr>`;
+         });
 
-  element.product_colors.forEach(color => {
-    result += `<p style="color:${color.hex_value}">${color.colour_name}</p>`;
-  });
+         result += '</table>';
 
-  result += `
-      </td>
-    </tr>`;
-});
+         // Now you can use the 'result' variable to display the table.
 
-result += '</table>';
+         // Select the card container element
+         const cardContainer = document.querySelector('.card-container');
+         cardContainer.innerHTML = result;
+      }
 
-// Now you can use the 'result' variable to display the table.
-
-         ;
-      // Select the card container element
-      const cardContainer = document.querySelector('.card-container');
-      cardContainer.innerHTML = result;
-}
       // Call the function to fetch and load the API data
       getAndLoadAPIdata();
    </script>
