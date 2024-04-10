@@ -24,16 +24,6 @@
       <input type="text" id="searchInput" placeholder="Search by name">
       <button onclick="searchProducts()">Search</button>
     </div>
-    <div>
-      <label>Filter by Category:</label>
-      <select id="categoryFilter" onchange="filterProducts()">
-        <option value="">All</option>
-        <option value="lipstick">Lipstick</option>
-        <option value="liquid">Liquid</option>
-        <option value="lip gloss">Lip Gloss</option>
-      </select>
-      <button onclick="resetFilter()">Reset</button>
-    </div>
     <table id="productTable">
       <thead>
         <th>Image</th>
@@ -81,22 +71,6 @@
       const searchTerm = searchInput.value.toLowerCase();
       const filteredData = productsData.filter(product => product.name.toLowerCase().includes(searchTerm));
       loadProductsTable(filteredData);
-    }
-
-    function filterProducts() {
-      const categoryFilter = document.getElementById('categoryFilter');
-      const selectedCategory = categoryFilter.value;
-      let filteredData = productsData;
-      if (selectedCategory) {
-        filteredData = productsData.filter(product => product.category.toLowerCase() === selectedCategory.toLowerCase());
-      }
-      loadProductsTable(filteredData);
-    }
-
-    function resetFilter() {
-      document.getElementById('searchInput').value = '';
-      document.getElementById('categoryFilter').value = '';
-      loadProductsTable(productsData);
     }
 
     // Call the function to fetch and load the API data
