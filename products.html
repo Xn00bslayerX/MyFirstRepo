@@ -4,9 +4,15 @@
 <head>
    <title>Products</title>
    <link rel="stylesheet" href="styles.css" type="text/css">
+   <style>
+      img {
+         max-height: 30vh;
+      }
+   </style>
 </head>
 
 <body>
+   <h1>Products Catalog</h1>
    <div id="navbar"></div>
    <script>
       fetch('navbar.html')
@@ -15,51 +21,86 @@
             document.getElementById('navbar').innerHTML = data;
          });
    </script>
-
-   <section id="concern" class="card">
-      <h1>Browse by Concern</h1>
-      <!-- Should fetch API data here -->
-      <a href="example.com">Example concern from API</a>
+   <section id="Searches">
+      <div>
+         <input type="text" id="searchInputProducts" placeholder="Product name">
+         <button onclick="searchProducts()">Search</button>
+      </div>
+      <div>
+         <input type="text" id="searchInputCategory" placeholder="Category name">
+         <button onclick="searchCategory()">Search</button>
+      </div>
    </section>
-   <section id="product" class="card">
-      <h1>Browse by Product</h1>
-      <!-- Should fetch API data here -->
-      <a href="example.com">Example product from API</a>
-   </section>
+   <div class="card-container">
 
-   <div class="card-container"></div>
-<!-- Work in progress to show working API data before implementing additional functionality -->
+      <table id="productTable">
+         <thead>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+         </thead>
+         <tbody>
+         </tbody>
+      </table>
+   </div>
    <script>
       const server = "https://makeup-api.herokuapp.com/api/v1/products.json";
+      let productsData = []; // Store all products data
+
       async function getAndLoadAPIdata() {
          let response = await fetch(server);
          let data = await response.json();
-         console.log("Data from API: ", data);
-         let result = '';
+         console.log(data, "fetched from", server);
+         productsData = data; // Store all products data in the variable
+         loadProductsTable(data);
+      }
 
-         data.forEach(element => {
-            result += `
-               <div class="card">
-               <img class="card-image" src="${element.image_link}">
-               <a href="${element.product_link}" class="card-link">${element.name}</a>
-               <p>${element.category}</p>
-               <p>${element.description}</p>
-               <p>${element.price_sign}${element.price} ${element.currency}</p>
-  `;//Weird way of handling price, but that's how the API specifies it
-            //Style the colors appropriately using inline CSS to avoid conflicts
-            element.product_colors.forEach(color => {
-               result += `<p style="color:${color.hex_value}">${color.colour_name}</p>`;
+      function loadProductsTable(data) {
+         const productTableBody = document.querySelector('#productTable tbody');
+         productTableBody.innerHTML = '';
+
+         if (data.length === 0) {
+            // Handle case when no matching products or categories are found
+            const noResultsRow = document.createElement('tr');
+            noResultsRow.innerHTML = '<td colspan="5">No results found</td>';
+            productTableBody.appendChild(noResultsRow);
+         } else {
+            data.forEach(element => {
+               let row = document.createElement('tr');
+               row.innerHTML = `
+            <td><img src="${element.image_link}" alt="Product Image"></td>
+            <td><a href="${element.product_link}">${element.name}</a></td>
+            <td>${element.category}</td>
+            <td>${element.description}</td>
+            <td>${element.price_sign}${element.price} ${element.currency}</td>
+         `;
+               console.log(row, "is being appended");
+               productTableBody.appendChild(row);
             });
-            result += '</div>';
-         });
-      // Select the card container element
-      const cardContainer = document.querySelector('.card-container');
-      cardContainer.innerHTML = result;
-      };
+         }
+      }
+
+      function searchProducts() {
+         const searchTerm = document.getElementById('searchInputProducts').value.toLowerCase();
+         if (searchTerm) {
+            const filteredData = productsData.filter(product => product.name && product.name.toLowerCase().includes(searchTerm));
+            loadProductsTable(filteredData);
+         }
+      }
+
+      function searchCategory() {
+         const searchTerm = document.getElementById('searchInputCategory').value.toLowerCase();
+         if (searchTerm) {
+            const filteredData = productsData.filter(product => product.category && product.category.toLowerCase().includes(searchTerm));
+            loadProductsTable(filteredData);
+         }
+      }
+
       // Call the function to fetch and load the API data
       getAndLoadAPIdata();
    </script>
-
 </body>
 
 </html>
