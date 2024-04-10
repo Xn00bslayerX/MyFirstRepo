@@ -1,74 +1,106 @@
 <!DOCTYPE HTML>
 <html>
-
 <head>
-   <title>Products</title>
-   <link rel="stylesheet" href="styles.css" type="text/css">
-   <style>
-      img {
-         max-height: 33vh;
-      }
-   </style>
+  <title>Products</title>
+  <link rel="stylesheet" href="styles.css" type="text/css">
+  <style>
+    img {
+      max-height: 33vh;
+    }
+  </style>
 </head>
-
 <body>
-   <div id="navbar"></div>
-   <script>
-      fetch('navbar.html')
-         .then(response => response.text())
-         .then(data => {
-            document.getElementById('navbar').innerHTML = data;
-         });
-   </script>
+   <h1>Products Catalog</h1>
+  <div id="navbar"></div>
+  <script>
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      });
+  </script>
+  <div class="card-container">
+    <div>
+      <input type="text" id="searchInput" placeholder="Search by name">
+      <button onclick="searchProducts()">Search</button>
+    </div>
+    <div>
+      <label>Filter by Category:</label>
+      <select id="categoryFilter" onchange="filterProducts()">
+        <option value="">All</option>
+        <option value="lipstick">Lipstick</option>
+        <option value="liquid">Liquid</option>
+        <option value="lip gloss">Lip Gloss</option>
+      </select>
+      <button onclick="resetFilter()">Reset</button>
+    </div>
+    <table id="productTable">
+      <thead>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Price</th>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    const server = "https://makeup-api.herokuapp.com/api/v1/products.json";
+    let productsData = []; // Store all products data
 
-   <section id="concern" class="card">
-      <h1>Browse by Concern</h1>
-      <!-- Should fetch API data here -->
-      <a href="example.com">Example concern from API</a>
-   </section>
-   <section id="product" class="card">
-      <h1>Browse by Product</h1>
-      <!-- Should fetch API data here -->
-      <a href="example.com">Example product from API</a>
-   </section>
+    async function getAndLoadAPIdata() {
+      let response = await fetch(server);
+      let data = await response.json();
+      console.log(data, "fetched from", server);
+      productsData = data; // Store all products data in the variable
+      loadProductsTable(data);
+    }
 
-   <div class="card-container"></div>
-   <!-- Work in progress to show working API data before implementing additional functionality -->
-   <script>
-      const server = "https://makeup-api.herokuapp.com/api/v1/products.json";
-      async function getAndLoadAPIdata() {
-    let response = await fetch(server);
-    let data = await response.json();
-    console.log("Data from API: ", data);
-    let result = '';
+    function loadProductsTable(data) {
+      const productTableBody = document.querySelector('#productTable tbody');
+      productTableBody.innerHTML = '';
 
-    result = '<table><thead><th>Image</th><th>Name</th><th>Category</th><th>Description</th><th>Price</th></thead>';
-    data.forEach(element => {
-        result += ` <tr>
-        <td><img src="${element.image_link}" alt="Product Image"></td>
-        <td><a href="${element.product_link}">${element.name}</a></td>
-        <td>${element.category}</td>
-        <td>${element.description}</td>
-        <td>${element.price_sign}${element.price} ${element.currency}</td>
-        <td>`;
-        for (let index = 0; index < 4; index++) {
-            result += `<p style="color:${element.product_colors[index].hex_value}">${element.product_colors[index].colour_name}</p>`;
-        }
-        result += `</td></tr>`;
-    });
+      data.forEach(element => {
+        let row = document.createElement('tr');
+        row.innerHTML = `
+          <td><img src="${element.image_link}" alt="Product Image"></td>
+          <td><a href="${element.product_link}">${element.name}</a></td>
+          <td>${element.category}</td>
+          <td>${element.description}</td>
+          <td>${element.price_sign}${element.price} ${element.currency}</td>
+        `;
 
-    result += '</table>';
+        productTableBody.appendChild(row);
+      });
+    }
 
-    // Select the card container element
-    const cardContainer = document.querySelector('.card-container');
-    cardContainer.innerHTML = result;
-}
+    function searchProducts() {
+      const searchInput = document.getElementById('searchInput');
+      const searchTerm = searchInput.value.toLowerCase();
+      const filteredData = productsData.filter(product => product.name.toLowerCase().includes(searchTerm));
+      loadProductsTable(filteredData);
+    }
 
+    function filterProducts() {
+      const categoryFilter = document.getElementById('categoryFilter');
+      const selectedCategory = categoryFilter.value;
+      let filteredData = productsData;
+      if (selectedCategory) {
+        filteredData = productsData.filter(product => product.category.toLowerCase() === selectedCategory.toLowerCase());
+      }
+      loadProductsTable(filteredData);
+    }
 
-      // Call the function to fetch and load the API data
-      getAndLoadAPIdata();
-   </script>
+    function resetFilter() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('categoryFilter').value = '';
+      loadProductsTable(productsData);
+    }
 
+    // Call the function to fetch and load the API data
+    getAndLoadAPIdata();
+  </script>
 </body>
-
 </html>
