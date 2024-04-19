@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Blushed</title>
+  <link rel="stylesheet" href="styles.css" type="text/css">
+  <style>
+    #productsBody {
+      background-color: white;
+    }
+
+    .card {
+
+      padding: 30px;
+      box-shadow: 8px 14px 38px rgba(39, 44, 49, .06), 1px 3px 8px rgba(39, 44, 49, .03);
+      transition: 0.3s;
+      background-color: #f8e3d2;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      opacity: 1;
+      width: 20%;
+
+    }
+
+    h4 {
+      text-align: center;
+    }
+
+    img {
+      margin-left: 40px;
+      height: 250px;
+      width: 300px;
+      border-radius: 5px;
+    }
+
+    .containerforcolor {
+      flex-direction: horizontal;
+      display: flex;
+    }
+
+    /* On mouse-over, add a deeper shadow */
+    .card:hover {
+      box-shadow: 8px 28px 50px rgba(39, 44, 49, .07), 1px 6px 12px rgba(39, 44, 49, .04);
+      transform: translate3D(0, -1px, 0) scale(1.03);
+    }
+
+
+    .container {
+      padding: 2px 16px;
+    }
+
+    .productsSections {
+      padding: 20px;
+      margin-left: 20px;
+
+    }
+  </style>
+</head>
+
+<body id="productsBody">
+  <div id="navbar"></div>
+  <script>
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      });
+  </script>
+  <main id="top" >
+    <div id="product" style="margin-top: 120px;">
+      <h1 style="text-align: center;">Browse by Product</h1>
+
+      <div style=" width: 95%; display: flex; justify-content: space-evenly; margin-left: 20px;">
+
+        <div onclick="getAndLoadAPIdata('lipstick')"
+          style=" border-radius: 10px; width: 32%;float:left; margin-right: 20px;" class="card">
+          <a href="#filtered" class="skip">
+            <img src="https://i.pinimg.com/564x/2a/78/2b/2a782b86dd2709aaff5d7caed04f1da6.jpg" alt="Lipstick">
+          </a>
+          <div class="container">
+            <h4><b>Lipstick</b></h4>
+          </div>
+        </div>
+        <div onclick="getAndLoadAPIdata('bronzer')"
+          style=" border-radius: 10px; width: 32%;float:left; margin-right: 20px;" class="card">
+          <a href="#filtered" class="skip">
+            <img src="https://i.pinimg.com/564x/dc/2b/9d/dc2b9d60dc3f0e98bbc1df366d0ada1b.jpg" alt="Bronzer">
+          </a>
+
+          <div class="container">
+            <h4><b>Bronzer</b></h4>
+
+          </div>
+        </div>
+        <div onclick="getAndLoadAPIdata('eyebrow')"
+          style=" border-radius: 10px; width: 32%;float:left; margin-right: 20px;" class="card">
+          <a href="#filtered" class="skip">
+            <img src="https://i.pinimg.com/564x/ba/55/91/ba55919a2e271189fd620e0edcd1dcea.jpg" alt="Eyebrow">
+          </a>
+
+          <div class="container">
+            <h4><b>Eyebrow</b></h4>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div style=" width: 95%; display: flex; justify-content: space-evenly; margin-left: 20px;">
+        <div onclick="getAndLoadAPIdata('eyeliner')"
+          style=" border-radius: 10px; width: 32%;float:left; margin-right: 20px;" class="card">
+          <a href="#filtered" class="skip">
+            <img src="https://i.pinimg.com/564x/98/3f/12/983f121dd9c9ed86d4ad865806de3623.jpg" alt="Eyeliner">
+          </a>
+
+          <div class="container">
+            <h4><b>Eyeliner</b></h4>
+
+          </div>
+        </div>
+        <div onclick="getAndLoadAPIdata('eyeshadow')"
+          style=" border-radius: 10px; width: 32%;float:left; margin-right: 20px;" class="card">
+          <a href="#filtered" class="skip">
+            <img src="https://i.pinimg.com/564x/11/21/d4/1121d44a017a7ea409508faf759bd334.jpg" alt="Eyeshadow">
+          </a>
+
+          <div class="container">
+            <h4><b>Eyeshadow</b></h4>
+
+          </div>
+        </div>
+        <div onclick="getAndLoadAPIdata('foundation')"
+          style=" border-radius: 10px; width: 32%;float:left; margin-right: 20px;" class="card">
+          <a href="#filtered" class="skip">
+            <img src="https://i.pinimg.com/564x/fb/5a/69/fb5a692297eb025c93ee30e3a69d4551.jpg" alt="Foundation">
+          </a>
+
+          <div class="container">
+            <h4><b>Foundation</b></h4>
+
+          </div>
+        </div>
+      </div>
+
+      <div style=" width: 95%; display: flex; justify-content: space-evenly; margin-left: 20px;">
+        <div onclick="getAndLoadAPIdata('lip_liner')"
+          style=" border-radius: 10px; width: 32%;float:left; margin-right: 20px;" class="card">
+          <a href="#filtered" class="skip">
+            <img src="https://i.pinimg.com/564x/81/c0/92/81c092874cbf9122a40be40c52609576.jpg" alt="Lipliner">
+          </a>
+
+          <div class="container">
+            <h4><b>Lip Liner</b></h4>
+
+          </div>
+        </div>
+        <div onclick="getAndLoadAPIdata('blush')"
+          style=" border-radius: 10px; width: 32%;float:left; margin-right: 20px;" class="card">
+          <a href="#filtered" class="skip">
+            <img src="https://i.pinimg.com/564x/af/8d/00/af8d00e8fe31c191d7cd9ad627499be2.jpg" alt="Blush">
+          </a>
+
+          <div class="container">
+            <h4><b>Blush</b></h4>
+
+          </div>
+        </div>
+        <div onclick="getAndLoadAPIdata('mascara')"
+          style=" border-radius: 10px; width: 32%;float:left; margin-right: 20px;" class="card">
+          <a href="#filtered" class="skip">
+            <img src="https://i.pinimg.com/564x/3d/70/57/3d7057679e360263a33e53c3ee5fff6d.jpg" alt="Mascara">
+          </a>
+
+          <div class="container">
+            <h4><b>Mascara</b></h4>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <div id="filtered" class="card-container" style="background-color: black; margin-top: 120px; padding: 20px">
+    
+  </div>
+
+  <script>
+
+    async function getAndLoadAPIdata(filter) {
+
+      let response = await fetch(`https://makeup-api.herokuapp.com/api/v1/products.json?product_type=${filter}`);
+      let data = await response.json();
+      console.log("Data from API: ", data);
+      let result = '';
+
+      data.forEach(element => {
+        result += `
+               <div style= "width: 95%; display: flex; justify-content: space-evenly; margin-left: 20px;" >
+               
+                <div class="cardP" style=" border-radius: 10px; width: 25; float:left; margin-right: 20px;" >
+                  <img class="card-image" src="${element.image_link}" alt="Image could not be displayed.">
+                  <p style="text-align: center" >${element.name}</p>
+                </div>
+               
+                <div class="cardP" style=" border-radius: 10px; width: 75%; float:left; margin-right: 20px;" >
+                  
+                  <p>Brand: ${element.brand}</p>
+                  <p>Category: ${element.category}</p>
+                  <p>Description: ${element.description}</p>
+                  <p>Price: ${element.price_sign}${element.price} ${element.currency}</p>
+                  
+                  <p>Site: <a href="${element.website_link}" > ${element.website_link} </a> </p>
+                  <a href="${element.product_link}" class="buyButton" >Buy</a> 
+                  
+                  
+               
+                
+                `;
+
+        //Style the colors appropriately using inline CSS to avoid conflicts
+        result += `<div class="containerforcolor">`
+        element.product_colors.forEach(color => {
+          result += `<p><div style ="margin-top: 30px; margin-right: 5px; height: 15px; width: 15px; border-radius: 50%; background-color: ${color.hex_value};"></div></p>`;
+        });
+        result += '</div></div></div>';
+      });
+
+      // Select the card container element
+      const cardContainer = document.querySelector('.card-container');
+      cardContainer.innerHTML = result;
+    };
+      // Call the function to fetch and load the API data
+
+  </script>
+  
+  <footer>
+    <div style=" height:20px; padding:10px; background-color: black; align-content: space-evenly;">
+      
+      <a href="#top" class="skip" id="topSkip" >Skip to top</a>
+    </div>
+  </footer>
+  
+</body>
+
+</html>

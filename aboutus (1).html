@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Blushed</title>
+      <link rel="stylesheet" href="styles.css">
+     <style>
+       body {
+         
+         padding: 0;
+         margin: 0;
+         min-height: 100%;
+         width: inherit;
+         background-color: white;
+       }
+       #section1::before{
+          background-image: url("https://img.freepik.com/premium-photo/makeup-table-with-lot-makeup-including-makeup-palette-large-set-makeup_905683-4673.jpg");
+          background-size: stretch;
+          background-position: center;
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 90%;
+          z-index: -2;
+          opacity: 1;
+        }
+       h1{
+         font-size: 30px;
+       }
+       .col1, .col2{
+         color: white;
+       }
+       .center {
+         display: block;
+         margin-left: auto;
+         margin-right: auto;
+         
+       }
+       .aboutButton {
+
+         text-align: center;
+         border-radius: 1px;
+         background-color: rgb(78, 78, 193);
+         font-family: Georgia;
+         text-decoration: none;
+         padding: 5px ;
+         border-radius: 5px;
+         border-color: rgb(204, 0, 102);
+         border: 0.5px solid #333333;
+
+
+       }
+
+       .aboutButton:link {
+         color: black;
+       }
+
+       .aboutButton:visited {
+         color: black;
+       }
+
+
+       .aboutButton:hover {
+         color: black;
+         background-color: rgb(179, 179, 255);
+         
+
+       }
+
+       .aboutButton:active {
+         color: black;
+       }
+       
+     </style>
+     
+   </head>
+  
+   <body >
+      <div id="navbar" style="margin-top: 90px;">
+        <script>
+fetch('navbar.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('navbar').innerHTML = data;
+  });
+</script>
+      </div>
+      
+      <section id="section1" >
+        <div  style= " width: 95%; height: 590px; padding: 15px; display: flex; justify-content: space-between; margin-left: 15px;">  
+
+             <div class="col1" style=" border-radius: 10px; background-color: rgb(7, 38, 69); width: 48%; height: 550px; float:left;">  
+
+               <section id="Whoarewe?" style="padding: 10px;">
+                  <h1 style="text-align: center;">What is Blushed?</h1>
+                  <p>Blushed is a pseudo site dedicated to helping you find the perfect product for your desires. We borrow data from [https://makeup-api.herokuapp.com/] to bring the best results to you.</p>
+                 <br>
+                <p>On this page you will find multiple products from a variety of brands, along with their descriptions, prices and links to purchase.</p>
+                 <p>Click Products below to start browsing! </span> </p>
+                 <a class="aboutButton" href="products.html">Products</a>
+
+                 <br>
+                 <br>
+                 <p>Ready to get started? Let's <a class="aboutButton" href="routine.html">Establish your Routine</a> </p>
+               </section>
+             </div>  
+
+             <div class="col2" style=" border-radius: 10px;  background-color: rgb(7, 38, 69); width:48%; height: 550px; float:left; justify-content: space-between; ">  
+
+
+                 <div class="row1" style="background-color: rgba(6,2,25,255); width: 95%; height: 250px; border-radius: 10px; margin-left: 15px;margin-bottom: 15px; margin-top: 10px; ">
+
+                  <section style="padding: 10px;">
+                    
+                      <h1 style="text-align: center;">Socials</h1>
+                    <img class="center"
+ src="https://i.pinimg.com/564x/2a/92/9c/2a929c488421c263918ee93b7ac8d6b7.jpg" width="120px"  alt="Socials">
+                  </section>
+
+                 </div>
+
+                 <div class="row2" style=" background-color: rgba(6,2,25,255); width:95%; height: 250px; margin-left: 15px; border-radius: 10px;">  
+                      
+                      <section style="padding: 10px;">
+                        <h1 style="text-align: center;">Want Updates?</h1>
+
+                          <label form="Sign up for our newsletter">Sign up for our newsletter</label>
+                          <input type="email" placeholder="Enter email">
+                          <button type="submit">Submit</button>
+
+                       </section>
+
+                 </div>  
+             </div> 
+         </div>  
+      </section>
+      
+   </body>
+  
+</html>
